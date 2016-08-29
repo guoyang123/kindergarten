@@ -10,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
-import cn.kinder.bean.Kinder_DataSource;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
@@ -19,6 +17,9 @@ import com.kinder.app.tools.KinderEventMessage;
 import com.kinder.notice.customviews.Notice_Notice_MainViewXmlView;
 import com.kinder.notice.model.NoticeListModel;
 import com.kinder.noticedetail.NoticeDetailActivity_VC;
+
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.kinder.bean.Kinder_DataSource;
 
 @SuppressLint("ValidFragment")
 public class Notice_Notice_Fragment_VC extends Notice_Notice_Fragment_BC 
@@ -136,7 +137,7 @@ implements OnRefreshListener2<ListView>,OnItemClickListener
 
 	public void searchLogic(String searchText) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(), "notice:"+searchText, 0).show();
+		Toast.makeText(getActivity(), "notice:"+searchText, Toast.LENGTH_SHORT).show();
 	}
 
 	public void notifydetail(NoticeListModel model) {

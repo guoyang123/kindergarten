@@ -1,27 +1,27 @@
 package com.kinder.check;
 
-import java.util.Date;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.kinder.app.tools.KinderEventMessage;
+import com.kinder.check.customviews.CheckUserFragmentXmlView;
+import com.squareup.interfaces.OnClickOtherDateListener;
+import com.squareup.timessquare.CalendarPickerView.OnDateSelectedListener;
+import com.squareup.timessquare.MonthDescriptor;
+import com.tour.app.safecode.SafeCodeDialogListener;
+import com.tour.app.safecode.SafeCodeDialog_VC;
+
+import java.util.Date;
+
 import cn.com.iucd.iucdframe.eventmvc.EventMessage;
 import cn.kinder.bean.BabyCheckModel;
 import cn.kinder.bean.BabyModel;
 import cn.kinder.util.MethodUtils;
 import cn.kinder.util.TimeUtils;
-
-import com.kinder.app.tools.KinderEventMessage;
-import com.kinder.check.customviews.CheckUserFragmentXmlView;
-import com.squareup.interfaces.OnClickOtherDateListener;
-import com.squareup.timessquare.MonthDescriptor;
-import com.squareup.timessquare.CalendarPickerView.OnDateSelectedListener;
-import com.tour.app.safecode.SafeCodeDialogListener;
-import com.tour.app.safecode.SafeCodeDialog_VC;
 
 @SuppressLint("ValidFragment")
 public class CheckUserFragment_VC extends CheckUserFragment_BC 

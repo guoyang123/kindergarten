@@ -1,7 +1,5 @@
 package com.kinder.app.tools;
 
-import java.io.File;
-
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
@@ -15,6 +13,8 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
+
+import java.io.File;
 
 public class CameraTool {
 
@@ -34,7 +34,7 @@ public class CameraTool {
 		 * @param picUrl 原图的图片地址，存在sdcard
 		 * @param status 状态值
 		 */
-		public abstract void OnCameraResponse(Bitmap thumb,String picUrl,int status);
+		public abstract void OnCameraResponse(Bitmap thumb, String picUrl, int status);
 	}
 
 
@@ -166,7 +166,7 @@ public class CameraTool {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-		if (android.os.Build.VERSION.SDK_INT >= 19)//android.os.Build.VERSION_CODES.KITKAT
+		if (Build.VERSION.SDK_INT >= 19)//android.os.Build.VERSION_CODES.KITKAT
 		{
 			String localfilePath=getPath(activity,uri);
 			intent.setDataAndType(Uri.fromFile(new File(localfilePath)), "image/*");

@@ -3,7 +3,6 @@ package com.kinder.noticedetail.customviews;
 import android.content.Context;
 import android.widget.LinearLayout;
 
-import com.kinder.noticedetail.customviews.NoticeDetail_GridView_AdapterXmlView;
 
 public class NoticeDetail_GridView_Adapterxml_LinearLayout extends LinearLayout {
 

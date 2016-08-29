@@ -1,14 +1,15 @@
 package com.kinder.notice;
 
-import java.util.List;
-
 import android.widget.Toast;
-import cn.kinder.bean.Kinder_DataSource;
 
 import com.kinder.notice.customviews.Notice_Active_MainViewXmlView;
 import com.kinder.notice.model.NoticeListModel;
 import com.kinder.notice.model.Notice_DataSource;
 import com.myt360.kindergarten.Kinder_BaseFragment;
+
+import java.util.List;
+
+import cn.kinder.bean.Kinder_DataSource;
 
 public abstract class Notice_Active_Fragment_BC extends Kinder_BaseFragment {
 
@@ -35,7 +36,7 @@ public abstract class Notice_Active_Fragment_BC extends Kinder_BaseFragment {
 				initMainViewData(source);
 			}else 
 			{
-				Toast.makeText(getActivity(), source.getErrorMsg(), 0).show();
+				Toast.makeText(getActivity(), source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

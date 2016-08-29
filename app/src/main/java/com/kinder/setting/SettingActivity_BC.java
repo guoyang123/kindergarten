@@ -1,13 +1,9 @@
 package com.kinder.setting;
 
-import java.io.File;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
-import cn.kinder.bean.UserModel;
-import cn.kinder.user.DbOperationModel;
 
 import com.easemob.EMCallBack;
 import com.easemob.chatuidemo.DemoApplication;
@@ -18,6 +14,11 @@ import com.kinder.login.LoginActivity_VC;
 import com.kinder.setting.customviews.SettingMainViewXmlView;
 import com.myt360.app.consts.KinderConst;
 import com.myt360.kindergarten.Kind_BaseActivity;
+
+import java.io.File;
+
+import cn.kinder.bean.UserModel;
+import cn.kinder.user.DbOperationModel;
 
 public  abstract class SettingActivity_BC extends Kind_BaseActivity {
 
@@ -83,7 +84,7 @@ public  abstract class SettingActivity_BC extends Kind_BaseActivity {
 			
 			@Override
 			public void onError(int code, String message) {
-				Toast.makeText(SettingActivity_BC.this, "退出登录:"+message, 0).show();
+				Toast.makeText(SettingActivity_BC.this, "退出登录:"+message, Toast.LENGTH_SHORT).show();
 			}
 		});
 	}
@@ -133,7 +134,7 @@ public  abstract class SettingActivity_BC extends Kind_BaseActivity {
 		Kinder_Bitmap.getInstance(this).clearCacheInternalInBackgroud();
 		delAllFile(path);
 		mainView.cacheView.setCacheData("");
-		Toast.makeText(this, "缓存清理完毕", 0).show();
+		Toast.makeText(this, "缓存清理完毕", Toast.LENGTH_SHORT).show();
 	}
 	public void delAllFile(String path) {
 		File file = new File(path);

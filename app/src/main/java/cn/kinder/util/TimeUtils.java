@@ -1,15 +1,8 @@
 package cn.kinder.util;
 
-import static java.util.Calendar.HOUR_OF_DAY;
-import static java.util.Calendar.MILLISECOND;
-import static java.util.Calendar.MINUTE;
-import static java.util.Calendar.SECOND;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 
@@ -95,7 +88,8 @@ public class TimeUtils {
 	public static String getCheckTime(Date date){
 		try{
 			
-			SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+			//SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat format=new SimpleDateFormat("yyyyMM");
 			return format.format(date);
 		}catch(Exception e){
 			e.printStackTrace();

@@ -2,7 +2,7 @@ package com.kinder.app.tools;
 
 public class KinderUrlConst {
 
-	public static final String BASE_URL="http://112.74.87.155:8080/app"; 
+	public static final String BASE_URL="http://121.43.118.10:8080/kindleSchool/app";//"http://112.74.87.155:8080/app";
 	
 	/**登陆接口*/
 	public static final String LOGIN=BASE_URL+"/user/login.do";
@@ -35,7 +35,7 @@ public class KinderUrlConst {
     /**通讯录接口*/
     public static final String GET_CONTACTLIST_URL=BASE_URL+"/user/getContactsList.do";
    
-    	 public static final String GET_CHATLIST_URL=BASE_URL+"/user/getChatList.do";
+	public static final String GET_CHATLIST_URL=BASE_URL+"/user/getChatList.do";
     
     /**意见反馈接口*/
     public static final String FEEDBACK_URL=BASE_URL+"/check/saveKinderFeedback.do";

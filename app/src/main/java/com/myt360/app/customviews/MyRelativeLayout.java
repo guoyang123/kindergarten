@@ -1,6 +1,5 @@
 package com.myt360.app.customviews;
 
-import net.tsz.afinal.FinalBitmap;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,11 +16,14 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import cn.com.iucd.iucdframe.utils.DensityUtil;
-import cn.com.iucd.iucdframe.utils.RUtil;
 
 import com.kinder.app.tools.Kinder_Bitmap;
 import com.weiwangcn.betterspinner.library.BetterSpinner;
+
+import net.tsz.afinal.FinalBitmap;
+
+import cn.com.iucd.iucdframe.utils.DensityUtil;
+import cn.com.iucd.iucdframe.utils.RUtil;
 
 /**
  * 
@@ -729,7 +731,6 @@ public class MyRelativeLayout extends RelativeLayout{
 	protected  View productView(Context mContext,float pro,int id,int viewWidth,int viewHeight,int toleft,int toright,int above,int below,
 			int left,int top,int right,int bottom,RelativeLayout parent)
 	 {
-		
 		View view =new View(mContext);
 		view.setId(id);
 		LayoutParams params=getParam(mContext,pro,viewWidth,viewHeight);
@@ -1186,7 +1187,7 @@ public class MyRelativeLayout extends RelativeLayout{
 		}
 		
 		if(width==LayoutParams.MATCH_PARENT&&(height!=LayoutParams.MATCH_PARENT||height!=LayoutParams.WRAP_CONTENT)){
-			params=new LayoutParams(LayoutParams.MATCH_PARENT,(int)(DensityUtil.dip2px(context,height) * pro));
+			params=new LayoutParams(LayoutParams.MATCH_PARENT,(int)(DensityUtil.dip2px(context, height) * pro));
 		    return params;
 		}
 		if((width!=LayoutParams.MATCH_PARENT||width!=LayoutParams.WRAP_CONTENT)&&(height==LayoutParams.MATCH_PARENT||height==LayoutParams.WRAP_CONTENT)){

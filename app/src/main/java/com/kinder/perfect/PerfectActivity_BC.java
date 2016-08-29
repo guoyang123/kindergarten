@@ -1,23 +1,9 @@
 package com.kinder.perfect;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.util.Log;
 import android.widget.Toast;
-
-import cn.kinder.bean.BabyModel;
-import cn.kinder.bean.ClassModel;
-import cn.kinder.bean.ClassesModel;
-import cn.kinder.bean.RelationModel;
-import cn.kinder.bean.SchoolModel;
-import cn.kinder.bean.UserModel;
-import cn.kinder.bean.UserPicModel;
-import cn.kinder.user.DbOperationModel;
 
 import com.google.gson.Gson;
 import com.kinder.app.tools.KinderNetWork;
-import com.kinder.login.model.Login_DataSource;
 import com.kinder.menu.MenuActivity_VC;
 import com.kinder.perfect.customviews.PerfectMainViewXmlView;
 import com.kinder.perfect.model.PerfectDataSource;
@@ -28,6 +14,15 @@ import com.tour.app.camera.CameraDialog_VC;
 import com.tour.app.wheelviewdialog.BasicInfoModel;
 import com.tour.app.wheelviewdialog.WheelViewDialogListener;
 import com.tour.app.wheelviewdialog.WheelViewDialog_VC;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.kinder.bean.BabyModel;
+import cn.kinder.bean.RelationModel;
+import cn.kinder.bean.UserModel;
+import cn.kinder.bean.UserPicModel;
+import cn.kinder.user.DbOperationModel;
 
 public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 
@@ -50,7 +45,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 	}
 	/**家长完善用户信息
 	 * 
-	 * @param infos (username usertel usersex seniority)
+	 * @param  (username usertel usersex seniority)
 	 * */
 	protected void perfect_UserInfo_ByNetWork(String username,String usertel,String usersex,String seniority,String babys,String userpic)
 	{
@@ -81,7 +76,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 				initMainViewData(dataSource);
 			}else 
 			{
-				Toast.makeText(this, source.getErrorMsg(), 0).show();
+				Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -116,7 +111,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 				logic_succupload(source);
 			}else
 			{
-			  Toast.makeText(this, source.getErrorMsg(), 0).show();	
+			  Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			  upload_status=UPLOADPIC_FAIL;
 			  this.picModels.remove(source.getUserPicModel());
 			}
@@ -164,7 +159,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 			String errorcode=source.getErrorCode();
 			if(errorcode==null||errorcode.equals(""))
 			{
-				Toast.makeText(this, "完善信息成功", 0).show();
+				Toast.makeText(this, "完善信息成功", Toast.LENGTH_SHORT).show();
 				
 				DbOperationModel.updateUserInfo(this, this.dataSource.getUserModel());
 				
@@ -192,7 +187,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 		String username =mainView.userInfoView.nameinfoView.name_EditText.getText().toString();
 		if(username==null||username.equals(""))
 		{
-			Toast.makeText(this, "用户名必填", 0).show();
+			Toast.makeText(this, "用户名必填", Toast.LENGTH_SHORT).show();
 			return ;
 		}
 	//	String usertel=mainView.userInfoView.phoneInfoView.value_TextView.getText().toString();
@@ -208,7 +203,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 		
 		if(!mainView.clauseView.isAgre())
 		{
-			Toast.makeText(this, "请阅读并同意服务条款", 0).show();
+			Toast.makeText(this, "请阅读并同意服务条款", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		

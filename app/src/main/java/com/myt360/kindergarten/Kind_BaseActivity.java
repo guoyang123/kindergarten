@@ -1,32 +1,29 @@
 package com.myt360.kindergarten;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.Window;
+
+import com.easemob.applib.controller.HXSDKHelper;
+import com.kinder.app.loading.Buzz_LoadingDialog;
+import com.kinder.app.tools.KinderNetWork;
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.ActivityManager;
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
 import cn.com.iucd.iucdframe.activity.IUCDFragmentActivity;
 import cn.com.iucd.iucdframe.eventmvc.EventMessage;
 import cn.kinder.bean.UserModel;
 import cn.kinder.user.DbOperationModel;
 import cn.kinder.util.MethodUtils;
-
-import com.easemob.applib.controller.HXSDKHelper;
-import com.kinder.app.loading.Buzz_LoadingDialog;
-import com.kinder.app.tools.KinderNetWork;
-import com.umeng.analytics.MobclickAgent;
 
 
 /**

@@ -9,7 +9,7 @@ import com.myt360.app.customviews.MyRelativeLayout;
 public class WheelViewItemXml extends MyRelativeLayout {
 
 	public TextView desc_TextView;
-	
+
 	public WheelViewItemXml(Context context, float pro, float screenW,
 			float screenH) {
 		super(context, pro, screenW, screenH);

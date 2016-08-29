@@ -1,16 +1,6 @@
 package com.kinder.userdetail;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.util.Log;
 import android.widget.Toast;
-
-import cn.kinder.bean.BabyModel;
-import cn.kinder.bean.RelationModel;
-import cn.kinder.bean.UserModel;
-import cn.kinder.bean.UserPicModel;
-import cn.kinder.user.DbOperationModel;
 
 import com.google.gson.Gson;
 import com.kinder.app.tools.KinderNetWork;
@@ -23,6 +13,15 @@ import com.tour.app.camera.CameraDialog_VC;
 import com.tour.app.wheelviewdialog.BasicInfoModel;
 import com.tour.app.wheelviewdialog.WheelViewDialogListener;
 import com.tour.app.wheelviewdialog.WheelViewDialog_VC;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.kinder.bean.BabyModel;
+import cn.kinder.bean.RelationModel;
+import cn.kinder.bean.UserModel;
+import cn.kinder.bean.UserPicModel;
+import cn.kinder.user.DbOperationModel;
 
 public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 
@@ -45,7 +44,7 @@ public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 	}
 	/**编辑用户信息
 	 * 
-	 * @param infos (username usertel usersex seniority)
+	 * @param  (username usertel usersex seniority)
 	 * */
 	protected void perfect_UserInfo_ByNetWork(String username,String usertel,String usersex,String seniority,String babys,String userpic)
 	{
@@ -75,7 +74,7 @@ public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 				initMainViewData();
 			}else 
 			{
-				Toast.makeText(this, source.getErrorMsg(), 0).show();
+				Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -95,12 +94,12 @@ public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 			String errorCode=source.getErrorCode();
 			if(errorCode==null||errorCode.equals(""))
 			{
-                Toast.makeText(this, "修改信息成功", 0).show();
+                Toast.makeText(this, "修改信息成功", Toast.LENGTH_SHORT).show();
 				DbOperationModel.updateUserInfo(this, this.dataSource.getUserModel());
 				this.finish();
 			}else 
 			{
-				Toast.makeText(this, source.getErrorMsg(), 0).show();
+				Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -128,7 +127,7 @@ public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 				//Toast.makeText(this, source.getFileurl(), 0).show();
 			}else
 			{
-			  Toast.makeText(this, source.getErrorMsg(), 0).show();	
+			  Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			 // upload_status=UPLOADPIC_FAIL;
 			  this.picModels.remove(source.getUserPicModel());
 			}
@@ -202,7 +201,7 @@ public abstract class UserDetailActivity_BC extends Kind_BaseActivity {
 		String username =mainView.userInfoView.nameinfoView.value_EditText.getText().toString();
 		if(username==null||username.equals(""))
 		{
-			Toast.makeText(this, "用户名必填", 0).show();
+			Toast.makeText(this, "用户名必填", Toast.LENGTH_SHORT).show();
 			return ;
 		}
 		String usertel=mainView.userInfoView.phoneInfoView.value_TextView.getText().toString();

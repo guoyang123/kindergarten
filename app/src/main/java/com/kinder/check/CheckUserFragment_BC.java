@@ -1,24 +1,19 @@
 package com.kinder.check;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import android.util.Log;
 import android.widget.Toast;
-
-import cn.kinder.bean.BabyCheckModel;
-import cn.kinder.bean.BabyCheckTimeModel;
-import cn.kinder.util.TimeUtils;
 
 import com.kinder.app.tools.KinderNetWork;
 import com.kinder.check.customviews.CheckUserFragmentXmlView;
 import com.kinder.check.model.CheckBabyMonth_DataSource;
-import com.kinder.check.model.CheckBaby_DataSource;
-import com.kinder.check.model.CheckTeacher_DataSource;
 import com.myt360.kindergarten.Kinder_BaseFragment;
-import com.squareup.interfaces.OnClickOtherDateListener;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cn.kinder.bean.BabyCheckModel;
+import cn.kinder.bean.BabyCheckTimeModel;
 
 public abstract class CheckUserFragment_BC extends Kinder_BaseFragment {
 
@@ -86,10 +81,10 @@ public abstract class CheckUserFragment_BC extends Kinder_BaseFragment {
 			String errorCode=source.getErrorCode();
 			if(errorCode==null||errorCode.equals(""))
 			{
-				Toast.makeText(getActivity(), "发送成功", 0).show();
+				Toast.makeText(getActivity(), "发送成功", Toast.LENGTH_SHORT).show();
 			}else 
 			{
-				Toast.makeText(getActivity(), source.getErrorMsg(), 0).show();
+				Toast.makeText(getActivity(), source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

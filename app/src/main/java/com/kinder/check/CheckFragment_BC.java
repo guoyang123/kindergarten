@@ -1,16 +1,7 @@
 package com.kinder.check;
 
-import java.util.Date;
-import java.util.List;
-
 import android.util.Log;
 import android.widget.Toast;
-import cn.kinder.bean.BabyCheckModel;
-import cn.kinder.bean.BabyModel;
-import cn.kinder.bean.ClassesModel;
-import cn.kinder.bean.SchoolModel;
-import cn.kinder.bean.UserModel;
-import cn.kinder.util.TimeUtils;
 
 import com.kinder.app.tools.KinderNetWork;
 import com.kinder.check.customviews.CheckMainViewXmlView;
@@ -21,6 +12,14 @@ import com.kinder.login.LoginActivity_VC;
 import com.myt360.app.consts.RuleConst;
 import com.myt360.kindergarten.Kinder_BaseFragment;
 import com.tour.app.canlendar.CalendarDialog_VC;
+
+import java.util.Date;
+import java.util.List;
+
+import cn.kinder.bean.BabyCheckModel;
+import cn.kinder.bean.BabyModel;
+import cn.kinder.bean.UserModel;
+import cn.kinder.util.TimeUtils;
 
 public  abstract class CheckFragment_BC extends Kinder_BaseFragment {
 
@@ -102,7 +101,7 @@ public  abstract class CheckFragment_BC extends Kinder_BaseFragment {
 				initMainViewData(dataSource);
 			}else 
 			{
-				Toast.makeText(getActivity(), source.getErrorMsg(), 0).show();
+				Toast.makeText(getActivity(), source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -133,7 +132,7 @@ public  abstract class CheckFragment_BC extends Kinder_BaseFragment {
 				initBabysMainViewData(babys_DataSource);
 			}else 
 			{
-				Toast.makeText(getActivity(), source.getErrorMsg(), 0).show();
+				Toast.makeText(getActivity(), source.getErrorMsg(), Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

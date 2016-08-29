@@ -13,14 +13,6 @@
  */
 package com.easemob.chatuidemo.activity;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -65,9 +57,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
-import cn.kinder.bean.UserModel;
-import cn.kinder.user.DbOperationModel;
 
 import com.easemob.EMChatRoomChangeListener;
 import com.easemob.EMError;
@@ -117,8 +106,20 @@ import com.kinder.chat.model.ContactUser_DataSource;
 import com.kinder.perfect.model.PerfectDataSource;
 import com.myt360.kindergarten.Kind_BaseActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.kinder.bean.UserModel;
+import cn.kinder.user.DbOperationModel;
+
 /**
- * ���澶╅〉���
+ *
  * 
  */
 public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener,EMEventListener{
@@ -183,7 +184,6 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	private int chatType;
 	private EMConversation conversation;
 	public static ChatActivity activityInstance = null;
-	// 缁�璋�������娑����
 	public String toChatUsername;
 	public String nickName;
 	private VoiceRecorder voiceRecorder;
@@ -208,7 +208,6 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	private Handler micImageHandler = new Handler() {
 		@Override
 		public void handleMessage(android.os.Message msg) {
-			// ������msg�����㈠�剧��
 			micImage.setImageDrawable(micImages[msg.what]);
 		}
 	};
@@ -225,12 +224,10 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		setUpView();
 	}
 
-	/**根据班级环信ID获取班级家长*/
 	protected void interface_getUsers_byNetWork(String groupid)
 	{
 		KinderNetWork.interface_getUsers_byNetWork(this, getEventMessage(),groupid);
 	}
-	/**根据用户环信ID获取家长信息*/
 	protected void interface_get_UserInfo_ByNetWork(String easemobid)
 	{
 		KinderNetWork.get_UserInfo_ByNetWork(this, getEventMessage(),easemobid);
@@ -265,7 +262,6 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		voiceCallBtn = (ImageView) findViewById(R.id.btn_voice_call);
 		videoCallBtn = (ImageView) findViewById(R.id.btn_video_call);
 
-		// ��ㄧ�昏��婧����浠�,��ㄤ��褰���惰����虫��
 		micImages = new Drawable[] { getResources().getDrawable(R.drawable.record_animate_01),
 				getResources().getDrawable(R.drawable.record_animate_02),
 				getResources().getDrawable(R.drawable.record_animate_03),
@@ -281,9 +277,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				getResources().getDrawable(R.drawable.record_animate_13),
 				getResources().getDrawable(R.drawable.record_animate_14), };
 
-		// 琛ㄦ��list
 		reslist = getExpressionRes(35);
-		// ���濮����琛ㄦ��viewpager
 		List<View> views = new ArrayList<View>();
 		View gv1 = getGridChildView(1);
 		View gv2 = getGridChildView(2);
@@ -399,13 +393,11 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE)).newWakeLock(
 				PowerManager.SCREEN_DIM_WAKE_LOCK, "demo");
-		// ��ゆ��������杩����缇よ��
 		chatType = getIntent().getIntExtra("chatType", CHATTYPE_SINGLE);
 
-		if (chatType == CHATTYPE_SINGLE) { // ������
+		if (chatType == CHATTYPE_SINGLE) { // 锟斤拷锟斤拷锟斤拷
 			toChatUsername = getIntent().getStringExtra("userId");
 		    nickName=getIntent().getStringExtra("nickname");
-		    //获取对方用户的信息
 		    interface_get_UserInfo_ByNetWork(toChatUsername);
 			Map<String,RobotUser> robotMap=((DemoHXSDKHelper)HXSDKHelper.getInstance()).getRobotList();
 			if(robotMap!=null&&robotMap.containsKey(toChatUsername)){
@@ -420,14 +412,11 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				((TextView) findViewById(R.id.name)).setText(nickName);//toChatUsername
 			}
 		} else {
-			// 缇よ��
 			findViewById(R.id.container_to_group).setVisibility(View.VISIBLE);
 			findViewById(R.id.container_remove).setVisibility(View.GONE);
 			findViewById(R.id.container_voice_call).setVisibility(View.GONE);
 			//findViewById(R.id.container_video_call).setVisibility(View.GONE);
 			toChatUsername = getIntent().getStringExtra("groupId");
-			/**根据班级环信ID获取班级家长*/
-			Log.e("buzz1", "群聊的环信id："+toChatUsername);
 			interface_getUsers_byNetWork(toChatUsername);
 			
 //			List<ContactListUserModel> usermodels=(List<ContactListUserModel>) getIntent().getSerializableExtra("usermodels");
@@ -447,7 +436,6 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	        // show forward message if the message is not null
 	        String forward_msg_id = getIntent().getStringExtra("forward_msg_id");
 	        if (forward_msg_id != null) {
-	            // ��剧ず������瑕�杞�������娑����
 	            forwardMessage(forward_msg_id);
 	        }
 		}
@@ -462,11 +450,8 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	        conversation = EMChatManager.getInstance().getConversationByType(toChatUsername,EMConversationType.ChatRoom);
 	    }
 	     
-        // ���姝や��璇�������璇绘�扮疆涓�0
         conversation.markAllMessagesAsRead();
 
-        // ���濮����db��讹��姣�涓�conversation���杞芥�扮�����getChatOptions().getNumberOfMessagesLoaded
-        // 杩�涓���扮��濡����姣���ㄦ�锋�����杩���ヤ��璇������㈡�舵�剧ず���涓���颁��涓���凤��灏卞�����杞戒��浜�
         final List<EMMessage> msgs = conversation.getAllMessages();
         int msgCount = msgs != null ? msgs.size() : 0;
         if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) {
@@ -517,9 +502,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	
 	protected void onListViewCreation(){
         adapter = new MessageAdapter(ChatActivity.this, toChatUsername, chatType);
-        // ��剧ず娑����
         listView.setAdapter(adapter);
-//        //通讯录列表传过来的数据
 //        List<ContactListUserModel> usermodels=(List<ContactListUserModel>) getIntent().getSerializableExtra("usermodels");
 //        adapter.setUserModels(usermodels);
         listView.setOnScrollListener(new ListScrollListener());
@@ -550,7 +533,6 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
             ((TextView) findViewById(R.id.name)).setText(nickName);//toChatUsername
         }
         
-        // ������褰����浼�璇����缇よ��瑙ｆ�ｈ��T浜�浠�
         groupListener = new GroupListener();
         EMGroupManager.getInstance().addGroupChangeListener(groupListener);
 	}
@@ -610,19 +592,19 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		}
 		if (requestCode == REQUEST_CODE_CONTEXT_MENU) {
 			switch (resultCode) {
-			case RESULT_CODE_COPY: // 澶���舵�����
+			case RESULT_CODE_COPY: //
 				EMMessage copyMsg = ((EMMessage) adapter.getItem(data.getIntExtra("position", -1)));
 				// clipboard.setText(SmileUtils.getSmiledText(ChatActivity.this,
 				// ((TextMessageBody) copyMsg.getBody()).getMessage()));
 				clipboard.setText(((TextMessageBody) copyMsg.getBody()).getMessage());
 				break;
-			case RESULT_CODE_DELETE: // �����ゆ�����
+			case RESULT_CODE_DELETE: //
 				EMMessage deleteMsg = (EMMessage) adapter.getItem(data.getIntExtra("position", -1));
 				conversation.removeMessage(deleteMsg.getMsgId());
 				adapter.refreshSeekTo(data.getIntExtra("position", adapter.getCount()) - 1);
 				break;
 
-			case RESULT_CODE_FORWARD: // 杞����娑����
+			case RESULT_CODE_FORWARD: //
 				EMMessage forwardMsg = (EMMessage) adapter.getItem(data.getIntExtra("position", 0));
 				Intent intent = new Intent(this, ForwardMessageActivity.class);
 				intent.putExtra("forward_msg_id", forwardMsg.getMsgId());
@@ -634,16 +616,14 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				break;
 			}
 		}
-		if (resultCode == RESULT_OK) { // 娓�绌烘�����
+		if (resultCode == RESULT_OK) { //
 			if (requestCode == REQUEST_CODE_EMPTY_HISTORY) {
-				// 娓�绌轰��璇�
 				EMChatManager.getInstance().clearConversation(toChatUsername);
 				adapter.refresh();
-			} else if (requestCode == REQUEST_CODE_CAMERA) { // ��������х��
+			} else if (requestCode == REQUEST_CODE_CAMERA) { //
 				if (cameraFile != null && cameraFile.exists())
 					sendPicture(cameraFile.getAbsolutePath());
-			} else if (requestCode == REQUEST_CODE_SELECT_VIDEO) { // �����������伴����╃��瑙�棰�
-
+			} else if (requestCode == REQUEST_CODE_SELECT_VIDEO) {
 				int duration = data.getIntExtra("dur", 0);
 				String videoPath = data.getStringExtra("path");
 				File file = new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
@@ -681,14 +661,14 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				}
 				sendVideo(videoPath, file.getAbsolutePath(), duration / 1000);
 
-			} else if (requestCode == REQUEST_CODE_LOCAL) { // �����������板�剧��
+			} else if (requestCode == REQUEST_CODE_LOCAL) {
 				if (data != null) {
 					Uri selectedImage = data.getData();
 					if (selectedImage != null) {
 						sendPicByUri(selectedImage);
 					}
 				}
-			} else if (requestCode == REQUEST_CODE_SELECT_FILE) { // �����������╃�����浠�
+			} else if (requestCode == REQUEST_CODE_SELECT_FILE) { //
 				if (data != null) {
 					Uri uri = data.getData();
 					if (uri != null) {
@@ -696,7 +676,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 					}
 				}
 
-			} else if (requestCode == REQUEST_CODE_MAP) { // ��板��
+			} else if (requestCode == REQUEST_CODE_MAP) { //
 				double latitude = data.getDoubleExtra("latitude", 0);
 				double longitude = data.getDoubleExtra("longitude", 0);
 				String locationAddress = data.getStringExtra("address");
@@ -707,22 +687,22 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 					String st = getResources().getString(R.string.unable_to_get_loaction);
 					Toast.makeText(this, st, 0).show();
 				}
-				// ������娑����
+				// 锟斤拷锟斤拷锟斤拷濞戯拷锟斤拷锟�
 			} else if (requestCode == REQUEST_CODE_TEXT || requestCode == REQUEST_CODE_VOICE
 					|| requestCode == REQUEST_CODE_PICTURE || requestCode == REQUEST_CODE_LOCATION
 					|| requestCode == REQUEST_CODE_VIDEO || requestCode == REQUEST_CODE_FILE) {
 				resendMessage();
 			} else if (requestCode == REQUEST_CODE_COPY_AND_PASTE) {
-				// 绮�璐�
+				// 缁拷鐠愶拷
 				if (!TextUtils.isEmpty(clipboard.getText())) {
 					String pasteText = clipboard.getText().toString();
 					if (pasteText.startsWith(COPY_IMAGE)) {
-						// �����剧�����缂���绘��锛�杩�������姝ｅ父���path
+						// 锟斤拷锟斤拷锟藉墽锟斤拷锟斤拷锟界紓锟斤拷锟界粯锟斤拷閿涳拷鏉╋拷锟斤拷锟斤拷锟斤拷濮濓絽鐖讹拷锟斤拷path
 						sendPicture(pasteText.replace(COPY_IMAGE, ""));
 					}
 
 				}
-			} else if (requestCode == REQUEST_CODE_ADD_TO_BLACKLIST) { // 绉诲�ラ��������
+			} else if (requestCode == REQUEST_CODE_ADD_TO_BLACKLIST) { // 缁夎锟姐儵锟斤拷锟斤拷锟斤拷锟斤拷
 				EMMessage deleteMsg = (EMMessage) adapter.getItem(data.getIntExtra("position", -1));
 				addUserToBlacklist(deleteMsg.getFrom());
 			} else if (conversation.getMsgCount() > 0) {
@@ -735,7 +715,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 娑������炬����瑰�讳��浠�
+	 * 濞戯拷锟斤拷锟斤拷锟界偓锟斤拷锟斤拷鐟帮拷璁筹拷锟芥禒锟�
 	 * 
 	 * @param view
 	 */
@@ -743,23 +723,23 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	public void onClick(View view) {
 		String st1 = getResources().getString(R.string.not_connect_to_server);
 		int id = view.getId();
-		if (id == R.id.btn_send) {// ��瑰�诲�����������(������瀛����琛ㄦ��)
+		if (id == R.id.btn_send) {// 锟斤拷鐟帮拷璇诧拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷(锟斤拷锟斤拷锟斤拷鐎涳拷锟斤拷锟界悰銊︼拷锟�)
 			String s = mEditTextContent.getText().toString();
 			sendText(s);
 		} else if (id == R.id.btn_take_picture) {
-			selectPicFromCamera();// ��瑰�荤�х�稿�炬��
+			selectPicFromCamera();// 锟斤拷鐟帮拷鑽わ拷褏锟界锟界偓锟斤拷
 		} else if (id == R.id.btn_picture) {
-			selectPicFromLocal(); // ��瑰�诲�剧����炬��
-		} else if (id == R.id.btn_location) { // 浣�缃�
+			selectPicFromLocal(); // 锟斤拷鐟帮拷璇诧拷鍓э拷锟斤拷锟界偓锟斤拷
+		} else if (id == R.id.btn_location) { // 娴ｏ拷缂冿拷
 			startActivityForResult(new Intent(this, BaiduMapActivity.class), REQUEST_CODE_MAP);
-		} else if (id == R.id.iv_emoticons_normal) { // ��瑰�绘�剧ず琛ㄦ��妗�
+		} else if (id == R.id.iv_emoticons_normal) { // 锟斤拷鐟帮拷缁橈拷鍓с仛鐞涖劍锟斤拷濡楋拷
 			more.setVisibility(View.VISIBLE);
 			iv_emoticons_normal.setVisibility(View.INVISIBLE);
 			iv_emoticons_checked.setVisibility(View.VISIBLE);
 			btnContainer.setVisibility(View.GONE);
 			emojiIconContainer.setVisibility(View.VISIBLE);
 			hideKeyboard();
-		} else if (id == R.id.iv_emoticons_checked) { // ��瑰�婚�����琛ㄦ��妗�
+		} else if (id == R.id.iv_emoticons_checked) { // 锟斤拷鐟帮拷濠氾拷锟斤拷锟斤拷鐞涖劍锟斤拷濡楋拷
 			iv_emoticons_normal.setVisibility(View.VISIBLE);
 			iv_emoticons_checked.setVisibility(View.INVISIBLE);
 			btnContainer.setVisibility(View.VISIBLE);
@@ -767,12 +747,12 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			more.setVisibility(View.GONE);
 
 		} else if (id == R.id.btn_video) {
-			// ��瑰�绘�������炬��
+			// 锟斤拷鐟帮拷缁橈拷锟斤拷锟斤拷锟斤拷鐐拷锟�
 			Intent intent = new Intent(ChatActivity.this, ImageGridActivity.class);
 			startActivityForResult(intent, REQUEST_CODE_SELECT_VIDEO);
-		} else if (id == R.id.btn_file) { // ��瑰�绘��浠跺�炬��
+		} else if (id == R.id.btn_file) { // 锟斤拷鐟帮拷缁橈拷锟芥禒璺猴拷鐐拷锟�
 			selectFileFromLocal();
-		} else if (id == R.id.btn_voice_call) { // ��瑰�昏����崇�佃����炬��
+		} else if (id == R.id.btn_voice_call) { // 锟斤拷鐟帮拷鏄忥拷锟斤拷锟藉磭锟戒絻锟斤拷锟斤拷鐐拷锟�
 			if (!EMChatManager.getInstance().isConnected())
 				Toast.makeText(this, st1, 0).show();
 			else{
@@ -781,7 +761,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				voiceCallBtn.setEnabled(false);
 				toggleMore(null);
 			}
-		} else if (id == R.id.btn_video_call) { // 瑙�棰����璇�
+		} else if (id == R.id.btn_video_call) { // 鐟欙拷妫帮拷锟斤拷锟界拠锟�
 			if (!EMChatManager.getInstance().isConnected())
 				Toast.makeText(this, st1, 0).show();
 			else{
@@ -794,7 +774,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 浜�浠剁�����
+	 * 娴滐拷娴犲墎锟斤拷锟斤拷锟�
 	 * 
 	 * see {@link EMNotifierEvent}
      */
@@ -803,26 +783,26 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
         switch (event.getEvent()) {
         case EventNewMessage:
         {
-            //��峰�����message
+            //锟斤拷宄帮拷锟斤拷锟斤拷message
             EMMessage message = (EMMessage) event.getData();
             
             String username = null;
-            //缇ょ��娑����
+            //缂囥倗锟斤拷濞戯拷锟斤拷锟�
             if(message.getChatType() == ChatType.GroupChat || message.getChatType() == ChatType.ChatRoom){
                 username = message.getTo();
             }
             else{
-                //������娑����
+                //锟斤拷锟斤拷锟斤拷濞戯拷锟斤拷锟�
                 username = message.getFrom();
             }
 
-            //濡�������褰����浼�璇����娑����锛���锋�拌��澶╅〉���
+            //婵★拷锟斤拷锟斤拷锟斤拷瑜帮拷锟斤拷锟芥导锟界拠锟斤拷锟斤拷濞戯拷锟斤拷锟介敍锟斤拷锟介攱锟芥媽锟斤拷婢垛晠銆夛拷锟斤拷
             if(username.equals(getToChatUsername())){
                 refreshUIWithNewMessage();
-                //澹伴�冲�������ㄦ��绀烘����版�����
+                //婢逛即锟藉啿锟斤拷锟斤拷锟斤拷锟姐劍锟斤拷缁�鐑橈拷锟斤拷锟界増锟斤拷锟斤拷锟�
                 HXSDKHelper.getInstance().getNotifier().viberateAndPlayTone(message);
             }else{
-                //濡����娑����涓�������褰�������澶�ID���娑����
+                //婵★拷锟斤拷锟藉☉锟斤拷锟斤拷娑擄拷锟斤拷锟斤拷锟斤拷瑜帮拷锟斤拷锟斤拷锟斤拷婢讹拷ID锟斤拷锟藉☉锟斤拷锟斤拷
                 HXSDKHelper.getInstance().getNotifier().onNewMsg(message);
             }
 
@@ -830,14 +810,14 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
         }
         case EventDeliveryAck:
         {
-            //��峰�����message
+            //锟斤拷宄帮拷锟斤拷锟斤拷message
             EMMessage message = (EMMessage) event.getData();
             refreshUI();
             break;
         }
         case EventReadAck:
         {
-            //��峰�����message
+            //锟斤拷宄帮拷锟斤拷锟斤拷message
             EMMessage message = (EMMessage) event.getData();
             refreshUI();
             break;
@@ -881,7 +861,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��х�歌�峰����剧��
+	 * 锟斤拷褏锟芥瓕锟藉嘲锟斤拷锟斤拷鍓э拷锟�
 	 */
 	public void selectPicFromCamera() {
 		if (!CommonUtils.isExitsSdcard()) {
@@ -899,7 +879,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * �����╂��浠�
+	 * 锟斤拷锟斤拷锟解晜锟斤拷娴狅拷
 	 */
 	private void selectFileFromLocal() {
 		Intent intent = null;
@@ -915,7 +895,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 浠���惧����峰����剧��
+	 * 娴狅拷锟斤拷鎯э拷锟斤拷锟藉嘲锟斤拷锟斤拷鍓э拷锟�
 	 */
 	public void selectPicFromLocal() {
 		Intent intent;
@@ -930,7 +910,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������������娑����
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷濞戯拷锟斤拷锟�
 	 * 
 	 * @param content
 	 *            message content
@@ -946,7 +926,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			{
 				message.setAttribute("userpic", userModel.getUserpic());
 			}
-			// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+			// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 			if (chatType == CHATTYPE_GROUP){
 			    message.setChatType(ChatType.GroupChat);
 			}else if(chatType == CHATTYPE_CHATROOM){
@@ -956,13 +936,13 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				message.setAttribute("em_robot_message", true);
 			}
 			TextMessageBody txtBody = new TextMessageBody(content);
-			// 璁剧疆娑����body
+			// 鐠佸墽鐤嗗☉锟斤拷锟斤拷body
 			message.addBody(txtBody);
-			// 璁剧疆瑕����缁�璋�,��ㄦ��username������缇よ��groupid
+			// 鐠佸墽鐤嗙憰锟斤拷锟斤拷缂侊拷鐠嬶拷,锟斤拷銊︼拷锟絬sername锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷groupid
 			message.setReceipt(toChatUsername);
-			// ���messgage������conversation涓�
+			// 锟斤拷锟絤essgage锟斤拷锟斤拷锟斤拷conversation娑擄拷
 			conversation.addMessage(message);
-			// ������adapter���娑����������锛�adapter浼���规�������ョ��杩����message��剧ず娑�������璋����sdk�����������规��
+			// 锟斤拷锟斤拷锟斤拷adapter锟斤拷锟藉☉锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷閿涳拷adapter娴硷拷锟斤拷瑙勶拷锟斤拷锟斤拷锟斤拷銉э拷锟芥潻锟斤拷锟斤拷message锟斤拷鍓с仛濞戯拷锟斤拷锟斤拷锟斤拷鐠嬶拷锟斤拷锟絪dk锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟借锟斤拷
 			adapter.refreshSelectLast();
 			mEditTextContent.setText("");
 
@@ -972,7 +952,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������璇����
+	 * 锟斤拷锟斤拷锟斤拷鐠囷拷锟斤拷锟�
 	 * 
 	 * @param filePath
 	 * @param fileName
@@ -990,7 +970,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			{
 				message.setAttribute("userpic", userModel.getUserpic());
 			}
-			// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+			// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 			if (chatType == CHATTYPE_GROUP){
 				message.setChatType(ChatType.GroupChat);
 				}else if(chatType == CHATTYPE_CHATROOM){
@@ -1014,7 +994,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��������剧��
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷鍓э拷锟�
 	 * 
 	 * @param filePath
 	 */
@@ -1027,7 +1007,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		{
 			message.setAttribute("userpic", userModel.getUserpic());
 		}
-		// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+		// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 		if (chatType == CHATTYPE_GROUP){
 			message.setChatType(ChatType.GroupChat);
 		}else if(chatType == CHATTYPE_CHATROOM){
@@ -1036,7 +1016,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 
 		message.setReceipt(to);
 		ImageMessageBody body = new ImageMessageBody(new File(filePath));
-		// 榛�璁よ��杩�100k�����剧��浼����缂╁�����缁�瀵规�癸�����浠ヨ�剧疆���������������
+		// 姒涳拷鐠併倛锟斤拷鏉╋拷100k锟斤拷锟斤拷锟藉墽锟斤拷娴硷拷锟斤拷锟界紓鈺侊拷锟斤拷锟斤拷缂侊拷鐎佃锟界櫢锟斤拷锟斤拷锟芥禒銉拷鍓х枂锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
 		// body.setSendOriginalImage(true);
 		message.addBody(body);
 		if(isRobot){
@@ -1051,7 +1031,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������瑙�棰�娑����
+	 * 锟斤拷锟斤拷锟斤拷鐟欙拷妫帮拷濞戯拷锟斤拷锟�
 	 */
 	private void sendVideo(final String filePath, final String thumbPath, final int length) {
 		final File videoFile = new File(filePath);
@@ -1065,7 +1045,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			{
 				message.setAttribute("userpic", userModel.getUserpic());
 			}
-			// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+			// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 			if (chatType == CHATTYPE_GROUP){
 				message.setChatType(ChatType.GroupChat);
 			}else if(chatType == CHATTYPE_CHATROOM){
@@ -1089,7 +1069,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��规����惧����剧��uri��������剧��
+	 * 锟斤拷瑙勶拷锟斤拷锟芥儳锟斤拷锟斤拷鍓э拷锟絬ri锟斤拷锟斤拷锟斤拷锟斤拷鍓э拷锟�
 	 * 
 	 * @param selectedImage
 	 */
@@ -1126,7 +1106,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������浣�缃�淇℃��
+	 * 锟斤拷锟斤拷锟斤拷娴ｏ拷缂冿拷娣団剝锟斤拷
 	 * 
 	 * @param latitude
 	 * @param longitude
@@ -1135,7 +1115,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	 */
 	private void sendLocationMsg(double latitude, double longitude, String imagePath, String locationAddress) {
 		EMMessage message = EMMessage.createSendMessage(EMMessage.Type.LOCATION);
-		// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+		// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 		if (chatType == CHATTYPE_GROUP){
 			message.setChatType(ChatType.GroupChat);
 		}else if(chatType == CHATTYPE_CHATROOM){
@@ -1155,7 +1135,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ���������浠�
+	 * 锟斤拷锟斤拷锟斤拷锟斤拷锟芥禒锟�
 	 * 
 	 * @param uri
 	 */
@@ -1189,9 +1169,9 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			return;
 		}
 
-		// ���寤轰��涓����浠舵�����
+		// 锟斤拷锟藉杞帮拷锟芥稉锟斤拷锟斤拷娴犺埖锟斤拷锟斤拷锟�
 		EMMessage message = EMMessage.createSendMessage(EMMessage.Type.FILE);
-		// 濡�������缇よ��锛�璁剧疆chattype,榛�璁ゆ��������
+		// 婵★拷锟斤拷锟斤拷锟斤拷缂囥倛锟斤拷閿涳拷鐠佸墽鐤哻hattype,姒涳拷鐠併倖锟斤拷锟斤拷锟斤拷锟斤拷
 		if (chatType == CHATTYPE_GROUP){
 			message.setChatType(ChatType.GroupChat);
 		}else if(chatType == CHATTYPE_CHATROOM){
@@ -1212,7 +1192,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������娑����
+	 * 锟斤拷锟斤拷锟斤拷濞戯拷锟斤拷锟�
 	 */
 	private void resendMessage() {
 		EMMessage msg = null;
@@ -1224,7 +1204,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��剧ず璇���冲�炬��������
+	 * 锟斤拷鍓с仛鐠囷拷锟斤拷鍐诧拷鐐拷锟斤拷锟斤拷锟斤拷锟�
 	 * 
 	 * @param view
 	 */
@@ -1245,7 +1225,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��剧ず��������炬��
+	 * 锟斤拷鍓с仛锟斤拷锟斤拷锟斤拷锟斤拷鐐拷锟�
 	 * 
 	 * @param view
 	 */
@@ -1278,7 +1258,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��瑰�绘�ョ����ㄦ�蜂俊���
+	 * 锟斤拷鐟帮拷缁橈拷銉э拷锟斤拷锟姐劍锟借渹淇婏拷锟斤拷
 	 * 
 	 * @param view
 	 */
@@ -1295,7 +1275,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��瑰�昏����ョ兢缁�璇����
+	 * 锟斤拷鐟帮拷鏄忥拷锟斤拷锟姐儳鍏㈢紒锟界拠锟斤拷锟斤拷
 	 * 
 	 * @param view
 	 */
@@ -1312,7 +1292,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			intent.putExtra("groupId", toChatUsername);
 			startActivityForResult(intent, 0);
 //			
-	//			Toast.makeText(this, "缇よ��缁�淇℃��姝ｅ�ㄥ�����", 0).show();
+	//			Toast.makeText(this, "缂囥倛锟斤拷缂侊拷娣団剝锟斤拷濮濓絽锟姐劌锟斤拷锟斤拷锟�", 0).show();
 			
 		}
 //		else{
@@ -1322,7 +1302,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��剧ず�����������炬��������椤�
+	 * 锟斤拷鍓с仛锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟界偓锟斤拷锟斤拷锟斤拷锟斤拷妞わ拷
 	 * 
 	 * @param view
 	 */
@@ -1348,7 +1328,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��瑰�绘��瀛�杈���ユ��
+	 * 锟斤拷鐟帮拷缁橈拷锟界�涳拷鏉堬拷锟斤拷銉︼拷锟�
 	 * 
 	 * @param v
 	 */
@@ -1367,7 +1347,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
     private ImageView videoCallBtn;
 
 	/**
-	 * ���浣�璇磋��listener
+	 * 锟斤拷锟芥担锟界拠纾嬶拷锟絣istener
 	 * 
 	 */
 	class PressToSpeakListen implements OnTouchListener {
@@ -1453,7 +1433,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ��峰��琛ㄦ�����gridview���瀛�view
+	 * 锟斤拷宄帮拷锟界悰銊︼拷锟斤拷锟斤拷gridview锟斤拷锟界�涳拷view
 	 * 
 	 * @param i
 	 * @return
@@ -1477,24 +1457,24 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				String filename = expressionAdapter.getItem(position);
 				try {
-					// ���瀛�杈���ユ�����瑙���讹��������杈���ヨ〃���
-					// ���浣�璇磋�����瑙�锛�涓�璁╄����ヨ〃���
+					// 锟斤拷锟界�涳拷鏉堬拷锟斤拷銉︼拷锟斤拷锟斤拷鐟欙拷锟斤拷璁癸拷锟斤拷锟斤拷锟斤拷锟芥潏锟斤拷锟姐儴銆冿拷锟斤拷
+					// 锟斤拷锟芥担锟界拠纾嬶拷锟斤拷锟斤拷鐟欙拷閿涳拷娑擄拷鐠佲晞锟斤拷锟斤拷銉ㄣ�冿拷锟斤拷
 					if (buttonSetModeKeyboard.getVisibility() != View.VISIBLE) {
 
-						if (filename != "delete_expression") { // 涓���������ら��锛���剧ず琛ㄦ��
-							// 杩������ㄧ�����灏�锛����浠ユ贩娣������跺��涓�瑕�娣锋��SmileUtils杩�涓�绫�
+						if (filename != "delete_expression") { // 娑擄拷锟斤拷锟斤拷锟斤拷锟斤拷銈夛拷锟介敍锟斤拷锟藉墽銇氱悰銊︼拷锟�
+							// 鏉╋拷锟斤拷锟斤拷锟姐劎锟斤拷锟斤拷锟界亸锟介敍锟斤拷锟斤拷娴犮儲璐╁ǎ锟斤拷锟斤拷锟斤拷璺猴拷锟芥稉锟界憰锟藉ǎ閿嬶拷锟絊mileUtils鏉╋拷娑擄拷缁拷
 							Class clz = Class.forName("com.easemob.chatuidemo.utils.SmileUtils");
 							Field field = clz.getField(filename);
 							mEditTextContent.append(SmileUtils.getSmiledText(ChatActivity.this,
 									(String) field.get(null)));
-						} else { // �����ゆ��瀛�������琛ㄦ��
+						} else { // 锟斤拷锟斤拷锟姐倖锟斤拷鐎涳拷锟斤拷锟斤拷锟斤拷鐞涖劍锟斤拷
 							if (!TextUtils.isEmpty(mEditTextContent.getText())) {
 
-								int selectionStart = mEditTextContent.getSelectionStart();// ��峰�����������浣�缃�
+								int selectionStart = mEditTextContent.getSelectionStart();// 锟斤拷宄帮拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷娴ｏ拷缂冿拷
 								if (selectionStart > 0) {
 									String body = mEditTextContent.getText().toString();
 									String tempStr = body.substring(0, selectionStart);
-									int i = tempStr.lastIndexOf("[");// ��峰��������涓�涓�琛ㄦ�����浣�缃�
+									int i = tempStr.lastIndexOf("[");// 锟斤拷宄帮拷锟斤拷锟斤拷锟斤拷锟芥稉锟芥稉锟界悰銊︼拷锟斤拷锟斤拷娴ｏ拷缂冿拷
 									if (i != -1) {
 										CharSequence cs = tempStr.substring(i, selectionStart);
 										if (SmileUtils.containsKey(cs.toString()))
@@ -1568,7 +1548,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 
 		DemoHXSDKHelper sdkHelper = (DemoHXSDKHelper) DemoHXSDKHelper.getInstance();
 
-		// ���姝�activity 浠�foreground activity ���琛ㄩ��绉婚��
+		// 锟斤拷锟藉锟絘ctivity 娴狅拷foreground activity 锟斤拷锟界悰銊╋拷锟界粔濠氾拷锟�
 		sdkHelper.popActivity(this);
 		
 		super.onStop();
@@ -1580,12 +1560,12 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		if (wakeLock.isHeld())
 			wakeLock.release();
 		if (VoicePlayClickListener.isPlaying && VoicePlayClickListener.currentPlayListener != null) {
-			// ���姝㈣����虫�����
+			// 锟斤拷锟藉銏ｏ拷锟斤拷锟借櫕锟斤拷锟斤拷锟�
 			VoicePlayClickListener.currentPlayListener.stopPlayVoice();
 		}
 
 		try {
-			// ���姝㈠�����
+			// 锟斤拷锟藉銏狅拷锟斤拷锟斤拷
 			if (voiceRecorder.isRecording()) {
 				voiceRecorder.discardRecording();
 				recordingContainer.setVisibility(View.INVISIBLE);
@@ -1595,7 +1575,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * ������杞�������
+	 * 锟斤拷锟斤拷锟斤拷鏉烇拷锟斤拷锟斤拷锟斤拷
 	 */
 	private void hideKeyboard() {
 		if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
@@ -1605,7 +1585,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * �����ュ�伴��������
+	 * 锟斤拷锟斤拷锟姐儱锟戒即锟斤拷锟斤拷锟斤拷锟斤拷
 	 * 
 	 * @param username
 	 */
@@ -1638,7 +1618,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 杩����
+	 * 鏉╋拷锟斤拷锟�
 	 * 
 	 * @param view
 	 */
@@ -1651,7 +1631,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 瑕���������鸿��������
+	 * 鐟曪拷锟斤拷锟斤拷锟斤拷锟斤拷楦匡拷锟斤拷锟斤拷锟斤拷锟�
 	 */
 	@Override
 	public void onBackPressed() {
@@ -1668,8 +1648,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * listview婊���ㄧ�����listener
-	 * 
+	 *
 	 */
 	private class ListScrollListener implements OnScrollListener {
 
@@ -1680,12 +1659,12 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 				/*if (view.getFirstVisiblePosition() == 0 && !isloading && haveMoreData && conversation.getAllMessages().size() != 0) {
 					isloading = true;
 					loadmorePB.setVisibility(View.VISIBLE);
-					// sdk���濮�������杞界�����澶╄�板��涓�20��★����伴《��跺��db�����峰����村��					
+					// sdk锟斤拷锟芥慨锟斤拷锟斤拷锟斤拷锟芥潪鐣岋拷锟斤拷锟斤拷婢垛晞锟芥澘锟斤拷娑擄拷20锟斤拷鈽咃拷锟斤拷锟戒即銆婏拷锟借泛锟斤拷db锟斤拷锟斤拷锟藉嘲锟斤拷锟斤拷鏉戯拷锟�					
 					List<EMMessage> messages;
 					EMMessage firstMsg = conversation.getAllMessages().get(0);
 					try {
-						// ��峰����村��messges锛�璋���ㄦ�ゆ�规�������跺��浠�db��峰�����messages
-						// sdk浼������ㄥ����ュ�版��conversation涓�
+						// 锟斤拷宄帮拷锟斤拷锟芥潙锟斤拷messges閿涳拷鐠嬶拷锟斤拷銊︼拷銈嗭拷瑙勶拷锟斤拷锟斤拷锟斤拷璺猴拷锟芥禒锟絛b锟斤拷宄帮拷锟斤拷锟斤拷messages
+						// sdk娴硷拷锟斤拷锟斤拷锟姐劌锟斤拷锟斤拷銉ワ拷鐗堬拷锟絚onversation娑擄拷
 						if (chatType == CHATTYPE_SINGLE)
 							messages = conversation.loadMoreMsgFromDB(firstMsg.getMsgId(), pagesize);
 						else
@@ -1699,7 +1678,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 					} catch (InterruptedException e) {
 					}
 					if (messages.size() != 0) {
-						// ��锋��ui
+						// 锟斤拷閿嬶拷锟絬i
 						if (messages.size() > 0) {
 							adapter.refreshSeekTo(messages.size() - 1);
 						}
@@ -1726,7 +1705,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 
 	@Override
 	protected void onNewIntent(Intent intent) {
-		// ��瑰��notification bar杩���ヨ��澶╅〉���锛�淇�璇�������涓�涓����澶╅〉���
+		// 锟斤拷鐟帮拷锟絥otification bar鏉╋拷锟斤拷銉拷锟芥径鈺呫�夛拷锟斤拷閿涳拷娣囷拷鐠囷拷锟斤拷锟斤拷锟斤拷娑擄拷娑擄拷锟斤拷锟芥径鈺呫�夛拷锟斤拷
 		String username = intent.getStringExtra("userId");
 		if (toChatUsername.equals(username))
 			super.onNewIntent(intent);
@@ -1738,7 +1717,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 
 	/**
-	 * 杞����娑����
+	 * 鏉烇拷锟斤拷锟藉☉锟斤拷锟斤拷
 	 * 
 	 * @param forward_msg_id
 	 */
@@ -1747,17 +1726,17 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		EMMessage.Type type = forward_msg.getType();
 		switch (type) {
 		case TXT:
-			// ��峰��娑�������瀹癸��������娑����
+			// 锟斤拷宄帮拷锟藉☉锟斤拷锟斤拷锟斤拷锟界�圭櫢锟斤拷锟斤拷锟斤拷锟斤拷濞戯拷锟斤拷锟�
 			String content = ((TextMessageBody) forward_msg.getBody()).getMessage();
 			sendText(content);
 			break;
 		case IMAGE:
-			// ��������剧��
+			// 锟斤拷锟斤拷锟斤拷锟斤拷鍓э拷锟�
 			String filePath = ((ImageMessageBody) forward_msg.getBody()).getLocalUrl();
 			if (filePath != null) {
 				File file = new File(filePath);
 				if (!file.exists()) {
-					// 涓�瀛���ㄥぇ��惧�����缂╃�ュ��
+					// 娑擄拷鐎涳拷锟斤拷銊ャ亣锟斤拷鎯э拷锟斤拷锟斤拷缂傗晝锟姐儱锟斤拷
 					filePath = ImageUtils.getThumbnailImagePath(filePath);
 				}
 				sendPicture(filePath);
@@ -1773,7 +1752,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 	}
 	
 	/**
-	 * ���娴�缇ょ��瑙ｆ�ｆ�����琚�T浜�浠�
+	 * 锟斤拷锟藉ù锟界紘銈囷拷锟界憴锝嗭拷锝嗭拷锟斤拷锟斤拷鐞氾拷T娴滐拷娴狅拷
 	 * 
 	 */
 	class GroupListener extends GroupRemoveListener{
@@ -1796,7 +1775,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 
 		@Override
 		public void onGroupDestroy(final String groupId, String groupName) {
-			// 缇ょ��瑙ｆ�ｆ�ｅソ��ㄦ�ら〉���锛����绀虹兢缁�琚�瑙ｆ�ｏ��骞�finish姝ら〉���
+			// 缂囥倗锟斤拷鐟欙絾锟斤絾锟斤絽銈斤拷锟姐劍锟姐倝銆夛拷锟斤拷閿涳拷锟斤拷锟界粈铏瑰參缂侊拷鐞氾拷鐟欙絾锟斤綇锟斤拷楠烇拷finish濮濄倝銆夛拷锟斤拷
 			runOnUiThread(new Runnable() {
 				String st14 = getResources().getString(R.string.the_current_group);
 
@@ -1876,7 +1855,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		return null;
 	}
 
-	/**成功获取班级信息*/
+	/**鎴愬姛鑾峰彇鐝骇淇℃伅*/
 	private void succ_getContanctList(Object obj)
 	{
 		//stopLoading();
@@ -1897,7 +1876,7 @@ public  class ChatActivity extends Kind_BaseActivity implements  OnClickListener
 		}
 	}
 	
-	/**成功获取用户信息*/
+	/**鎴愬姛鑾峰彇鐢ㄦ埛淇℃伅*/
 	private void succ_getUserInfo(Object obj)
 	{
 		//stopLoading();

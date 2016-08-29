@@ -8,7 +8,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import cn.com.iucd.iucdframe.utils.DensityUtil;
+
+import com.handmark.pulltorefresh.library.DensityUtil;
 
 public class CircularImage extends MaskedImage{
 
@@ -19,7 +20,7 @@ public class CircularImage extends MaskedImage{
 		super(paramContext);
 		this.context=paramContext;
 		this.pro=pro;
-		f3=(DensityUtil.dip2px(context,2)*pro);
+		f3=(DensityUtil.dip2px(context, 2)*pro);
 	}
 
 	public CircularImage(Context paramContext, AttributeSet paramAttributeSet) {

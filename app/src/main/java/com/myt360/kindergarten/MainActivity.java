@@ -13,9 +13,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.RelativeLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
-import cn.com.iucd.iucdframe.activity.IUCDMainActivityview;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
-import cn.com.iucd.iucdframe.utils.UIScreenCalculationUtil;
 
 import com.kinder.menu.MenuActivity_VC;
 import com.kinder.startup.StartUpActivity_VC;
@@ -28,6 +25,10 @@ import com.umeng.message.UTrack;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
+
+import cn.com.iucd.iucdframe.activity.IUCDMainActivityview;
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.com.iucd.iucdframe.utils.UIScreenCalculationUtil;
 
 /**
  * 

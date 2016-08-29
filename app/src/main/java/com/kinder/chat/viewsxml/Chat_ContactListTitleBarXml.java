@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import cn.com.iucd.iucdframe.utils.DensityUtil;
 
+import cn.com.iucd.iucdframe.utils.DensityUtil;
 import com.myt360.app.customviews.MyRelativeLayout;
 
 public class Chat_ContactListTitleBarXml extends MyRelativeLayout {
@@ -37,7 +37,7 @@ public class Chat_ContactListTitleBarXml extends MyRelativeLayout {
 		    leftBtn=new Button(context);
 		    leftBtn.setId(10011);
 		    LayoutParams leftBtn_params=new LayoutParams((int)(DensityUtil.dip2px(context,44) * pro),
-		    		(int)(DensityUtil.dip2px(context,44) * pro));
+		    		(int)(DensityUtil.dip2px(context, 44) * pro));
 			leftBtn.setLayoutParams(leftBtn_params);
 			leftBtn.setBackgroundResource(R.getRCode("drawable", "back_selector"));
 			wrap.addView(leftBtn);
