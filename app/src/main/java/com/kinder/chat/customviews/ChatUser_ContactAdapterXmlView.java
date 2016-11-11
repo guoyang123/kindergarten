@@ -3,6 +3,9 @@ package com.kinder.chat.customviews;
 import android.content.Context;
 import android.view.View;
 
+import com.kinder.app.tools.Kinder_Bitmap;
+import com.kinder.chat.viewsxml.ChatUser_ContactAdapterXml;
+
 import cn.kinder.bean.BabyModel;
 import cn.kinder.bean.ClassModel;
 import cn.kinder.bean.ContactListModel;
@@ -10,10 +13,6 @@ import cn.kinder.bean.ContactListUserModel;
 import cn.kinder.bean.RelationModel;
 import cn.kinder.bean.UserModel;
 import cn.kinder.user.DbOperationModel;
-
-import com.kinder.app.tools.KinderUrlConst;
-import com.kinder.app.tools.Kinder_Bitmap;
-import com.kinder.chat.viewsxml.ChatUser_ContactAdapterXml;
 
 public class ChatUser_ContactAdapterXmlView extends ChatUser_ContactAdapterXml {
 
@@ -75,8 +74,7 @@ public class ChatUser_ContactAdapterXmlView extends ChatUser_ContactAdapterXml {
 			{
 				return;
 			}
-			this.classtime_TextView.setText("我是"+relationModel.getRelationname());
-			
+
 			BabyModel babyModel=userlistmodel.getBabyModel();
 			if(babyModel==null)
 			{
@@ -89,11 +87,14 @@ public class ChatUser_ContactAdapterXmlView extends ChatUser_ContactAdapterXml {
 			if(usertype!=null&&!usertype.equals("")&&!usertype.equals("10004"))
 			{
 				this.babyname_TextView.setText("宝宝:"+babyModel.getBabyname());//
+				this.classtime_TextView.setText(babyModel.getBabyname()+"的"+relationModel.getRelationname());
+
 			}else
 			{
 				this.babyname_TextView.setVisibility(View.INVISIBLE);
 			}
-			
+
+
 		}
 		
 		

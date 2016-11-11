@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
-import cn.kinder.bean.UserPicModel;
 
 import com.kinder.app.tools.CameraTool;
 import com.kinder.app.tools.CameraTool.CameraToolProtocol;
@@ -14,6 +12,9 @@ import com.kinder.perfect.customviews.PerfectMainViewXmlView;
 import com.myt360.app.interfaces.OnUserPicClickListener;
 import com.tour.app.camera.CameraDialogListener;
 import com.tour.app.wheelviewdialog.WheelViewDialogListener;
+
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.kinder.bean.UserPicModel;
 
 public class PerfectActivity_VC extends PerfectActivity_BC 
 implements CameraDialogListener,CameraToolProtocol,WheelViewDialogListener,

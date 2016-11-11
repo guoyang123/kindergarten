@@ -107,9 +107,20 @@ public class KinderEventMessage
 	public static final int MSG_SIGN_FAIL=67;
 	//重新登录提示
 	public static final int MSG_RELOGIN=68;
-	
-	
-	
+
+	//检测版本接口
+	public static final int MSG_CHECKVERSION_START=69;
+	public static final int MSG_CHECKVERSION_SUCCESS=70;
+	public static final int MSG_CHECKVERSION_FAIL=71;
+	//更新接口确定按钮
+	public static final int MSG_SURE_BUTTON=72;
+	public static final int MSG_CANCEL_BUTTON=73;
+
+	//apk下载接口
+	public static final int MSG_DOWNLOAD_START=74;
+	public static final int MSG_DOWNLOAD_SUCCESS=75;
+	public static final int MSG_DOWNLOAD_FAIL=76;
+	public static final int MSG_DOWNLOAD_LOADING=77;
 	private int code;
 	private Object obj;
 	public KinderEventMessage(int code, Object obj) {

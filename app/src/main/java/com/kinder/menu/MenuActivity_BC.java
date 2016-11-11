@@ -1,21 +1,15 @@
 package com.kinder.menu;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
-import cn.kinder.bean.UserModel;
-import cn.kinder.util.iyuehuPreference;
-
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.kinder.app.tools.KinderNetWork;
 import com.kinder.chat.ChatFragment_VC;
-import com.kinder.chat.ContactlistActivity;
 import com.kinder.chat.ContactlistActivity_VC;
 import com.kinder.check.CheckFragment_VC;
 import com.kinder.check.LeaveActivity_VC;
@@ -28,9 +22,20 @@ import com.kinder.mycollect.MyCollectActivity_VC;
 import com.kinder.notice.NoticeFragment_VC;
 import com.kinder.parent.ParentFragment_VC;
 import com.kinder.parent.ParentSearchActivity_VC;
+import com.kinder.perfect.model.PerfectDataSource;
 import com.kinder.setting.SettingActivity_VC;
+import com.myt360.app.consts.KinderConst;
 import com.myt360.app.consts.RuleConst;
-import com.myt360.kindergarten.Kind_BaseActivity;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.kinder.bean.UserModel;
+import cn.kinder.util.iyuehuPreference;
+import customviews.dialog.CheckVersionDialog;
+import customviews.dialog.CheckVersionModel;
 
 public abstract class MenuActivity_BC extends MenuChatActivity {
 
@@ -53,6 +58,9 @@ public abstract class MenuActivity_BC extends MenuChatActivity {
 	protected NoticeFragment_VC noticeFragment_VC;
 	
 	protected String  notify;//推送通知
+
+	protected CheckVersionDialog checkVersionDialog;
+	protected CheckVersionModel checkVersionModel;
 	/**点击侧边栏按钮*/
 	protected void logic_clickSlideMenu() {
 		// TODO Auto-generated method stub
@@ -305,4 +313,141 @@ public abstract class MenuActivity_BC extends MenuChatActivity {
 		iyuehuPreference.ensureIntializePreference(this);
 		iyuehuPreference.save("warn", model.isIsline());
 	}
+
+
+
+	/**开始获取数据*/
+	protected void start_getData(Object obj)
+	{
+		startLoading();
+	}
+	/**成功获取数据*/
+	protected void succ_getData(Object obj)
+	{
+		stopLoading();
+		if(obj!=null&&obj instanceof CheckVersionModel)
+		{
+			CheckVersionModel source=(CheckVersionModel)obj;
+			String errorCode=source.getErrorCode();
+		       /**
+				0-不需要更新
+			    1-需要更新
+				-3-系统错误
+                */
+			if(errorCode!=null&&errorCode.equals("1"))//需要更新
+			{
+                this.checkVersionModel=source;
+				showCommentDialog(source);
+
+			}else
+			{
+				Toast.makeText(this, source.getErrorMsg(), 0).show();
+			}
+		}
+	}
+	/**失败获取数据*/
+	protected void fail_getData(Object obj)
+	{
+		stopLoading();
+	}
+
+
+
+	protected void showCommentDialog(Object obj){
+		FragmentManager fragmentManager= this.getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+
+		if(checkVersionDialog==null){
+			checkVersionDialog=new CheckVersionDialog(getEventMessage());
+			checkVersionDialog.setCancelable(false);
+
+
+		}
+		checkVersionDialog.setDatas(obj);
+		checkVersionDialog.show(fragmentTransaction, "checkVersionDialog");
+
+	}
+
+
+	protected void hideCommentDialog(){
+		FragmentManager fragmentManager= this.getSupportFragmentManager();
+		Fragment fragment=fragmentManager.findFragmentByTag("checkVersionDialog");
+		FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+		if(fragment !=null){
+			fragmentTransaction.remove(fragment);
+			fragmentTransaction.commitAllowingStateLoss();
+			fragment=null;
+		}
+
+	}
+
+	/**下载逻辑*/
+	protected void logic_download() {
+
+		String apkpath=KinderConst.getSDPath()+"/kinder.apk";
+		File file=new File(apkpath);
+		if(!file.exists()){
+			try {
+				file.createNewFile();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		KinderNetWork.download_apkFile_ByNetwork(this, getEventMessage(), checkVersionModel.getDownloadUrl(), file);
+		hideCommentDialog();
+
+	}
+
+	/**开始下载数据*/
+	protected void start_getapkData()
+	{
+		Toast.makeText(MenuActivity_BC.this, "开始下载...", Toast.LENGTH_SHORT).show();
+	}
+	/**失败下载获取数据*/
+	protected void fail_getapkData()
+	{
+		Toast.makeText(MenuActivity_BC.this, "下载失败...", Toast.LENGTH_SHORT).show();
+	}
+	protected void succ_getapkData(Object obj) {
+		if(obj!=null&&obj instanceof  File){
+			openFile((File)obj);
+		}
+	}
+	private void openFile(File file) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.setAction(android.content.Intent.ACTION_VIEW);
+		intent.setDataAndType(Uri.fromFile(file),
+				"application/vnd.android.package-archive");
+		startActivity(intent);
+	}
+
+
+	/****获取学校信息**/
+	/**链接网路接口，请求数据*/
+	protected void get_UserInfo_Datas_ByNetWork()
+	{
+		KinderNetWork.get_UserInfo_ByNetWork(this, getEventMessage());
+	}
+
+	/**成功获取数据*/
+	protected void succ_getUserInfoData(Object obj)
+	{
+		stopLoading();
+		if(obj!=null&&obj instanceof PerfectDataSource)
+		{
+			PerfectDataSource source=(PerfectDataSource)obj;
+			String errorCode=source.getErrorCode();
+			if(errorCode==null||errorCode.equals(""))
+			{
+				mainView.initSchoolData(source);
+			}else
+			{
+				Toast.makeText(this, source.getErrorMsg(), Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
 }

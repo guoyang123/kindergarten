@@ -1,31 +1,24 @@
 package cn.kinder.util;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.kinder.app.tools.KinderEventMessage;
-import com.kinder.login.LoginActivity_VC;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.os.Environment;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.FloatMath;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.kinder.app.tools.KinderEventMessage;
+import com.kinder.login.LoginActivity_VC;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -194,5 +187,19 @@ public class MethodUtils {
 			
 		}
 	}
+
+	/**获取系统版本号*/
+	public static String getVersion(Context mContext) {
+		     try {
+			         PackageManager manager = mContext.getPackageManager();
+			         PackageInfo info = manager.getPackageInfo(mContext.getPackageName(), 0);
+			        String version = info.versionName;
+			         return  version;
+			     } catch (Exception e) {
+			         e.printStackTrace();
+
+			     }
+		return "1.0";
+		 }
    
 }

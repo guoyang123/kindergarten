@@ -39,7 +39,6 @@ public class ForgetPswWrapXml extends MyRelativeLayout {
 				"", 12, "#313131", this, false);
 		vertify_EditText.setHint("请输入验证码");
 		vertify_EditText.setGravity(Gravity.CENTER_VERTICAL);
-		//vertify_EditText.setBackgroundColor(Color.parseColor("#ffffff"));
 		vertify_EditText.setBackgroundResource(R.getRCode("drawable", "forgetpsw_coner"));
 		getVertify_Button=productButton(context, pro, 213,
 				90, 35, 

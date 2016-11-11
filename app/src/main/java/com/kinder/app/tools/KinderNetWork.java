@@ -32,6 +32,7 @@ import cn.kinder.bean.LogininfoModel;
 import cn.kinder.bean.UserModel;
 import cn.kinder.bean.UserPicModel;
 import cn.kinder.user.DbOperationModel;
+import customviews.dialog.CheckVersionModel;
 
 
 public class KinderNetWork 
@@ -120,7 +121,7 @@ Log.e("buzz1", "login:"+t);
 	 * 获取个人信息接口
 	 * 
 	 * */
-	public static void get_UserInfo_ByNetWork(final Context context,final EventMessage eventMessage) 
+	public static void get_UserInfo_ByNetWork(final Context context,final EventMessage eventMessage)
 	{
 
 		Kinder_Http fh = new Kinder_Http(context);
@@ -171,7 +172,7 @@ Log.e("buzz1", "getuserinfo:onStart"+strMsg);
 	 * 通过环信获取他人信息接口
 	 * 
 	 * */
-	public static void get_UserInfo_ByNetWork(final Context context,final EventMessage eventMessage,final String userid) 
+	public static void get_UserInfo_ByNetWork(final Context context,final EventMessage eventMessage,final String userid)
 	{
 
 		Kinder_Http fh = new Kinder_Http(context);
@@ -940,7 +941,7 @@ Log.e("buzz1", "意见反馈接口:onStart");
 				super.onSuccess(t);
 Log.e("buzz1", "意见反馈接口:onSuccess:"+t);	
 FeedBack_DataSource model = KinderJsonParser
-						.parserFeedBack_DataSource(context,t);
+						.parserFeedBack_DataSource(context, t);
 				eventMessage
 						.post(new KinderEventMessage(
 								KinderEventMessage.MSG_FEEDBACK_SUCCESS,
@@ -988,7 +989,7 @@ Log.e("buzz1", "获取通知接口:onStart noticecate:"+noticecate);
 				super.onSuccess(t);
 Log.e("buzz1", "获取通知接口:onSuccess:"+t);	
 Notice_DataSource model = KinderJsonParser
-						.parserNotice_DataSource(context,t);
+						.parserNotice_DataSource(context, t);
 			if(model!=null)
 			{
 				model.setOperationType(operationtype);
@@ -1045,7 +1046,7 @@ Log.e("buzz1", "获取通知详细接口:onStart");
 Log.e("buzz1", "获取通知详细接口:onSuccess:"+t);	
 
 			NoticeDetail_DataSource model = KinderJsonParser
-				.parserNoticeDetails_DataSource(context,t);
+				.parserNoticeDetails_DataSource(context, t);
 			if(model!=null)
 			{
 				model.setType(type);
@@ -1079,7 +1080,7 @@ Log.e("buzz1", "获取通知详细接口:onFailure:"+strMsg);
 		params.put("keyword", keyword);
 		params.put("from", from);
 		params.put("num", num);
-	Log.e("buzz1", "from:"+from);
+	Log.e("buzz1", "from:" + from);
 		fh.post(KinderUrlConst.GET_ARTICLES_URL, params,new AjaxCallBack<Object>() {
 			@Override
 			public void onStart() 
@@ -1097,7 +1098,7 @@ Log.e("buzz1", "获取文章列表接口:onStart");
 				super.onSuccess(t);
 Log.e("buzz1", "获取文章列表接口:onSuccess:"+t);	
                 Article_DataSource model = KinderJsonParser
-						.parserArticle_DataSource(context,t);
+						.parserArticle_DataSource(context, t);
                 if(model!=null)
                 {
                  	model.setOperationType(operationtype);
@@ -1141,7 +1142,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 					super.onStart();
 					eventMessage
 							.post(new KinderEventMessage(
-									KinderEventMessage.MSG_GETARTICLES_START,null));
+									KinderEventMessage.MSG_GETARTICLES_START, null));
 				}
 
 				@Override
@@ -1149,7 +1150,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 					super.onSuccess(t);
 	Log.e("buzz1", "获取我的收藏接口:onSuccess:"+t);	
 	                Article_DataSource model = KinderJsonParser
-							.parserArticle_DataSource(context,t);
+							.parserArticle_DataSource(context, t);
 	                if(model!=null)
 	                {
 	                 	model.setOperationType(operationtype);
@@ -1182,7 +1183,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 			AjaxParams params = new AjaxParams();
 			cj_login(context, params);
 			params.put("articleid", articleid);
-			Log.e("buzz1", "articleid:"+articleid);
+			Log.e("buzz1", "articleid:" + articleid);
 			fh.post(KinderUrlConst.GET_ARTICLEDETAIL_URL, params,new AjaxCallBack<Object>() {
 				@Override
 				public void onStart() 
@@ -1200,7 +1201,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 					super.onSuccess(t);
 	Log.e("buzz1", "获取文章详细接口:onSuccess:"+t);	
 	ArticleDetail_DataSource   model = KinderJsonParser
-							.parserArticleDetail_DataSource(context,t);
+							.parserArticleDetail_DataSource(context, t);
 	               
 					eventMessage
 							.post(new KinderEventMessage(
@@ -1239,7 +1240,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 							super.onStart();
 							eventMessage
 									.post(new KinderEventMessage(
-											KinderEventMessage.MSG_GETUSERS_START,null));
+											KinderEventMessage.MSG_GETUSERS_START, null));
 						}
 
 						@Override
@@ -1247,7 +1248,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 							super.onSuccess(t);
 			Log.e("buzz1", "根据班级环信ID获取班级家长接口:onSuccess:"+t);	
 			ContactUser_DataSource   model = KinderJsonParser
-									.parserContactUser_DataSource(context,t);
+									.parserContactUser_DataSource(context, t);
 			               
 							eventMessage
 									.post(new KinderEventMessage(
@@ -1294,7 +1295,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 							super.onSuccess(t);
 			Log.e("buzz1", "顶踩分享接口:onSuccess:"+t);	
 			PraiseShare_DataSource   model = KinderJsonParser
-									.parserPraiseShare_DataSource(context,t);
+									.parserPraiseShare_DataSource(context, t);
 			               if(model!=null)
 			               {
 			            	    model.setAction(action);
@@ -1327,7 +1328,7 @@ Log.e("buzz1", "获取文章列表接口:onFailure:"+strMsg);
 			cj_login(context, params);
 			params.put("articleid", articleid);
 			params.put("collect", collect);
-Log.e("buzz1", "collect:"+collect);
+Log.e("buzz1", "collect:" + collect);
 			fh.post(KinderUrlConst.GET_COLLECT_URL, params,new AjaxCallBack<Object>() {
 				@Override
 				public void onStart() 
@@ -1337,7 +1338,7 @@ Log.e("buzz1", "collect:"+collect);
 					super.onStart();
 					eventMessage
 							.post(new KinderEventMessage(
-									KinderEventMessage.MSG_COLLECT_START,null));
+									KinderEventMessage.MSG_COLLECT_START, null));
 				}
 
 				@Override
@@ -1345,7 +1346,7 @@ Log.e("buzz1", "collect:"+collect);
 					super.onSuccess(t);
 	Log.e("buzz1", "收藏接口:onSuccess:"+t);	
 	Collect_DataSource   model = KinderJsonParser
-							.parserCollect_DataSource(context,t);
+							.parserCollect_DataSource(context, t);
 	               if(model!=null)
 	               {
 	            	    model.setCollect(collect);
@@ -1380,8 +1381,8 @@ Log.e("buzz1", "collect:"+collect);
 			params.put("babyids", babyids);
 			params.put("isjoin", isjoin);
 			params.put("noticeid", noticeid);
-Log.e("buzz1", "报名接口:onStart babyids:"+babyids);
-Log.e("buzz1", "报名接口:onStart isjoin:"+isjoin);
+Log.e("buzz1", "报名接口:onStart babyids:" + babyids);
+Log.e("buzz1", "报名接口:onStart isjoin:" + isjoin);
 Log.e("buzz1", "报名接口:onStart noticeid:"+noticeid);
 			fh.post(KinderUrlConst.GET_SIGN_URL, params,new AjaxCallBack<Object>() {
 				@Override
@@ -1399,7 +1400,7 @@ Log.e("buzz1", "报名接口:onStart noticeid:"+noticeid);
 					super.onSuccess(t);
 	Log.e("buzz1", "报名接口:onSuccess:"+t);	
 	NoticeDetail_DataSource   model = KinderJsonParser
-							.parserNoticeDetails_DataSource(context,t);
+							.parserNoticeDetails_DataSource(context, t);
 	             
 					eventMessage
 							.post(new KinderEventMessage(
@@ -1419,4 +1420,97 @@ Log.e("buzz1", "报名接口:onStart noticeid:"+noticeid);
 				}
 			});
         }
+
+	/**更新接口*/
+	public static void interface_CheckVersion_byNetWork(final Context context,final EventMessage eventMessage,
+												 String version)
+	{
+
+		Kinder_Http fh = new Kinder_Http(context);
+		AjaxParams params = new AjaxParams();
+		cj_login(context, params);
+		params.put("version", version);
+		Log.e("buzz1", " version:" + version);
+		fh.post(KinderUrlConst.GET_CHECKVERSION_URL, params,new AjaxCallBack<Object>() {
+			@Override
+			public void onStart()
+			{
+				// TODO Auto-generated method stub
+				super.onStart();
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_CHECKVERSION_START, null));
+			}
+
+			@Override
+			public void onSuccess(Object t) {
+				super.onSuccess(t);
+				Log.e("buzz1", "检测版本更新接口:onSuccess:"+t);
+				CheckVersionModel model = KinderJsonParser
+						.parserCheckVersionModel(context, t);
+
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_CHECKVERSION_SUCCESS,
+								model));
+
+			}
+
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				// TODO Auto-generated method stub
+				super.onFailure(t, errorNo, strMsg);
+				Log.e("buzz1", "检测版本更新接口:onFailure:"+strMsg);
+				eventMessage.post(new KinderEventMessage(
+						KinderEventMessage.MSG_CHECKVERSION_FAIL,
+						null));
+			}
+		});
+	}
+
+
+
+	/**文件下载*/
+	public static void download_apkFile_ByNetwork(final Context context,final EventMessage eventMessage,
+												  final String voiceUrl,File targetFile){
+
+		Kinder_Http fh = new Kinder_Http(context);
+		fh.download(voiceUrl, targetFile.getAbsolutePath(), new AjaxCallBack<File>() {
+			@Override
+			public void onStart() {
+				super.onStart();
+				Log.e("zd", "apk onstart:");
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_DOWNLOAD_START, null));
+			}
+
+			@Override
+			public void onLoading(long count, long current) {
+				super.onLoading(count, current);
+				Log.e("zd", "apk onLoading:" + current);
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_DOWNLOAD_LOADING, null));
+			}
+
+			@Override
+			public void onSuccess(File file) {
+				super.onSuccess(file);
+				Log.e("zd", "apk onsucess" + file.getAbsolutePath());
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_DOWNLOAD_SUCCESS, file));
+			}
+
+			@Override
+			public void onFailure(Throwable t, int errorNo, String strMsg) {
+				super.onFailure(t, errorNo, strMsg);
+				Log.e("zd", "apk onfail" + strMsg);
+				eventMessage
+						.post(new KinderEventMessage(
+								KinderEventMessage.MSG_DOWNLOAD_FAIL, null));
+			}
+		});
+	}
 }

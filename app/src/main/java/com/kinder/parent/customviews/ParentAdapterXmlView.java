@@ -2,15 +2,14 @@ package com.kinder.parent.customviews;
 
 import android.content.Context;
 import android.view.View;
-import android.widget.Toast;
-import cn.kinder.bean.UserModel;
-import cn.kinder.util.TimeUtils;
 
-import com.kinder.app.tools.KinderUrlConst;
 import com.kinder.app.tools.Kinder_Bitmap;
 import com.kinder.parent.model.ArticleListModel;
 import com.kinder.parent.viewsxml.ParentAdapterXml;
 import com.myt360.app.consts.RuleConst;
+
+import cn.kinder.bean.UserModel;
+import cn.kinder.util.TimeUtils;
 
 public class ParentAdapterXmlView extends ParentAdapterXml {
 
@@ -65,10 +64,10 @@ public class ParentAdapterXmlView extends ParentAdapterXml {
 		{
 			if(from.equals("0"))
 			{
-				this.author_TextView.setText("来源:普通");
+				this.author_TextView.setText("普通");//来源:
 			}else
 			{
-				this.author_TextView.setText("来源:转发");
+				this.author_TextView.setText("转发");//来源:
 			}
 		}
 		

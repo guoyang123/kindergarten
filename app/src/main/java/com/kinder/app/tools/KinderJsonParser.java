@@ -1,7 +1,8 @@
 package com.kinder.app.tools;
 
-import cn.kinder.bean.ContactListDataSource;
-import cn.kinder.bean.Kinder_DataSource;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kinder.chat.model.ContactUser_DataSource;
@@ -22,9 +23,9 @@ import com.kinder.parent.model.PraiseShare_DataSource;
 import com.kinder.perfect.model.PerfectDataSource;
 import com.kinder.perfect.model.UploadDataSource;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+import cn.kinder.bean.ContactListDataSource;
+import cn.kinder.bean.Kinder_DataSource;
+import customviews.dialog.CheckVersionModel;
 
 
 /**
@@ -391,6 +392,25 @@ public class KinderJsonParser {
 			
 		}
 		
+		return model;
+	}
+
+	//CheckVersionModel
+	public static CheckVersionModel parserCheckVersionModel(final Context context,Object obj){
+		CheckVersionModel model=null;
+		if(obj!=null){
+			String json=(String)obj;
+			Gson gson=new Gson();
+			try{
+				model=gson.fromJson(json, CheckVersionModel.class);
+			}catch(Exception e)
+			{
+				Toast.makeText(context, "检测版本更新数据有问题", 0).show();
+				return null;
+			}
+
+		}
+
 		return model;
 	}
 }

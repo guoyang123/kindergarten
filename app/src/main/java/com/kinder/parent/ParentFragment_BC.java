@@ -10,6 +10,7 @@ import com.kinder.notice.model.NoticeListModel;
 import com.kinder.parent.customviews.ParentMainViewXmlView;
 import com.kinder.parent.model.ArticleListModel;
 import com.kinder.parent.model.Article_DataSource;
+import com.kinder.perfect.model.PerfectDataSource;
 import com.myt360.kindergarten.Kinder_BaseFragment;
 
 public  abstract class ParentFragment_BC extends Kinder_BaseFragment {
@@ -21,7 +22,8 @@ public  abstract class ParentFragment_BC extends Kinder_BaseFragment {
 	{
 		KinderNetWork.interface_getArticle_byNetWork(getActivity(), getEventMessage(), keyword, from, String.valueOf(Kinder_DataSource.NUM), operationtype);
 	}
-	
+
+
 	/**开始获取数据*/
 	protected void start_getData(Object obj)
 	{
@@ -86,12 +88,15 @@ public  abstract class ParentFragment_BC extends Kinder_BaseFragment {
 	
 	protected void logic_clickItem(int position) {
 		// TODO Auto-generated method stub
-		ArticleListModel model=this.dataSource.getArticleListModel().get(position-1);
+		ArticleListModel model=this.dataSource.getArticleListModel().get(position - 1);
 
 		if(model!=null)
 		{
-			skip2Activity(ParentDetailActivity_VC.class,"articleListModel",model);//articleListModel
+			skip2Activity(ParentDetailActivity_VC.class, "articleListModel", model);//articleListModel
 		}
 		
 	}
+
+
+
 }

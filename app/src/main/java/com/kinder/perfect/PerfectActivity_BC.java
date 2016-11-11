@@ -49,12 +49,12 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 	 * */
 	protected void perfect_UserInfo_ByNetWork(String username,String usertel,String usersex,String seniority,String babys,String userpic)
 	{
-		KinderNetWork.perfect_UserInfo_ByNetWork(this, getEventMessage(),username,usertel,usersex,seniority,babys,userpic);
+		KinderNetWork.perfect_UserInfo_ByNetWork(this, getEventMessage(), username, usertel, usersex, seniority, babys, userpic);
 	}
 	/**图片上传接口*/
 	protected void submit_updatepic_byNetWork(String filename,UserPicModel model)
 	{
-		KinderNetWork.submit_updatepic_byNetWork(this, getEventMessage(), filename,model);
+		KinderNetWork.submit_updatepic_byNetWork(this, getEventMessage(), filename, model);
 	}
 
 	/**开始获取数据*/
@@ -224,7 +224,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 			List<BabyModel> babymodels=dataSource.getBabyModel();
 			Gson gson=new Gson();
 			String json=gson.toJson(babymodels);
-			perfect_UserInfo_ByNetWork(username, null, usersex, seniority, json,this.dataSource.getUserModel().getUserpic());
+			perfect_UserInfo_ByNetWork(username, null, usersex, seniority, json, this.dataSource.getUserModel().getUserpic());
 		}else
 		{
 			 this.dataSource.getUserModel().setUsername(username);
@@ -294,4 +294,7 @@ public abstract class PerfectActivity_BC extends Kind_BaseActivity {
 			mainView.refreshWhoData(this.dataSource.getRelationModel().get(position));
 		}
 	}
+
+
+
 }

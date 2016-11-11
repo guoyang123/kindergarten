@@ -1219,17 +1219,13 @@ public class MyRelativeLayout extends RelativeLayout{
 		}
 		if(CENTER_VERTICAL!=0){
 			params.addRule(RelativeLayout.CENTER_VERTICAL);
-			
 		}
 		if(CENTER_HORIZONTAL!=0){
 			params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-			
 		}
 		if(CENTER_IN_PARENT!=0){
 			params.addRule(RelativeLayout.CENTER_IN_PARENT);
-			
 		}
-		
 	}
 	
 	/**

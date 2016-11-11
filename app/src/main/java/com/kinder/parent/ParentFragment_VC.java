@@ -1,20 +1,20 @@
 package com.kinder.parent;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
-import cn.kinder.bean.Kinder_DataSource;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.kinder.app.tools.KinderEventMessage;
 import com.kinder.parent.customviews.ParentMainViewXmlView;
+
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.kinder.bean.Kinder_DataSource;
 
 public class ParentFragment_VC extends ParentFragment_BC  implements OnItemClickListener,OnRefreshListener2<ListView>{
 
@@ -22,7 +22,6 @@ public class ParentFragment_VC extends ParentFragment_BC  implements OnItemClick
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -36,7 +35,7 @@ public class ParentFragment_VC extends ParentFragment_BC  implements OnItemClick
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		interface_getArticle_byNetWork(null,"0",Kinder_DataSource.OPERATION_NORMAL);
+		interface_getArticle_byNetWork(null, "0", Kinder_DataSource.OPERATION_NORMAL);
 	}
 	@Override
 	public void transferMsg(Object... arg0) {
@@ -73,9 +72,11 @@ public class ParentFragment_VC extends ParentFragment_BC  implements OnItemClick
 			case KinderEventMessage.MSG_GETARTICLES_FAIL:
 				fail_getData(msg.getObj());
 				break;
+
 			}
 		}
 	}
+
 
 	@Override
 	public void onClick(View v) {

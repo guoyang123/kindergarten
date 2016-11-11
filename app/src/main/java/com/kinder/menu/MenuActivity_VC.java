@@ -5,20 +5,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-import cn.com.iucd.iucdframe.eventmvc.EventMessage;
 
 import com.easemob.EMNotifierEvent;
 import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMMessage;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.kinder.app.tools.KinderEventMessage;
+import com.kinder.app.tools.KinderNetWork;
 import com.kinder.menu.customviews.MenuMainViewXmlView;
 import com.kinder.menu.customviews.SlideMenuXmlView;
 import com.kinder.menu.interfaces.OnSearchListener;
 import com.kinder.userdetail.UserDetailActivity_VC;
 import com.myt360.kindergarten.R;
-import com.umeng.update.UmengUpdateAgent;
+
+import cn.com.iucd.iucdframe.eventmvc.EventMessage;
+import cn.kinder.util.MethodUtils;
 
 public class MenuActivity_VC extends MenuActivity_BC  implements OnItemClickListener
 ,OnSearchListener 
@@ -41,13 +43,16 @@ public class MenuActivity_VC extends MenuActivity_BC  implements OnItemClickList
 	     
 	     logic_notify(getIntent());
 	   //友盟更新
-		UmengUpdateAgent.update(this);
+		//UmengUpdateAgent.update(this);
+		//调用更新接口
+		KinderNetWork.interface_CheckVersion_byNetWork(this,getEventMessage(), MethodUtils.getVersion(this));
+
+		get_UserInfo_Datas_ByNetWork();
 	}
 	@Override
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
-	//	Toast.makeText(this, "onnetintent"+intent.getStringExtra("notify"), 0).show();
 		logic_notify(intent);
 	}
 	@Override
@@ -73,10 +78,62 @@ public class MenuActivity_VC extends MenuActivity_BC  implements OnItemClickList
 	}
 
 	@Override
-	public void onMessageMainThread(Object arg0) {
+	public void onMessageMainThread(Object object) {
 		// TODO Auto-generated method stub
-		
+
+		if(object!=null&&object instanceof KinderEventMessage)
+		{
+			KinderEventMessage msg=(KinderEventMessage)object;
+			switch(msg.getCode())
+			{
+				case KinderEventMessage.MSG_CHECKVERSION_START:
+					start_getData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_CHECKVERSION_SUCCESS:
+					succ_getData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_CHECKVERSION_FAIL:
+					fail_getData(msg.getObj());
+					break;
+
+				case KinderEventMessage.MSG_SURE_BUTTON://确定按钮
+                    logic_download();
+					break;
+				case KinderEventMessage.MSG_CANCEL_BUTTON://取消按钮
+                    hideCommentDialog();
+					break;
+				case KinderEventMessage.MSG_DOWNLOAD_START://下载apk
+					start_getapkData();
+					break;
+				case KinderEventMessage.MSG_DOWNLOAD_LOADING:
+					//succ_getData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_DOWNLOAD_SUCCESS://下载成功
+					succ_getapkData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_DOWNLOAD_FAIL:
+					fail_getapkData();
+					break;
+
+
+				case KinderEventMessage.MSG_GET_USERIFNO_START:
+				//	start_getData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_GET_USERIFNO_SUCCESS:
+					succ_getUserInfoData(msg.getObj());
+					break;
+				case KinderEventMessage.MSG_GET_USERIFNO_FAIL:
+					fail_getData(msg.getObj());
+					break;
+			}
+		}
+
+
+
 	}
+
+
+
 
 	@Override
 	public void onClick(View v) {
@@ -131,7 +188,7 @@ public class MenuActivity_VC extends MenuActivity_BC  implements OnItemClickList
 	@Override
 	public EventMessage initLocalEventMessage() {
 		// TODO Auto-generated method stub
-		return null;
+		return getEventMessage();
 	}
 
 	@Override

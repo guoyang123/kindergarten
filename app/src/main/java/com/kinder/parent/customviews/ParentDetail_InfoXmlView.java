@@ -2,11 +2,10 @@ package com.kinder.parent.customviews;
 
 import android.content.Context;
 
-import cn.kinder.util.TimeUtils;
-
 import com.kinder.parent.model.ArticleListModel;
-import com.kinder.parent.model.ArticleModel;
 import com.kinder.parent.viewsxml.ParentDetail_InfoXml;
+
+import cn.kinder.util.TimeUtils;
 
 public class ParentDetail_InfoXmlView extends ParentDetail_InfoXml {
 
@@ -27,7 +26,7 @@ public class ParentDetail_InfoXmlView extends ParentDetail_InfoXml {
 //	
 	public void setInfo(String from,String type,String time)
 	{
-		this.desc_TextView.setText("来源:"+from+"  类型:"+type+"     时间:"+TimeUtils.getActivityDetailTime(time));
+		this.desc_TextView.setText("来源:"+from+"  类型:"+type+"     "+TimeUtils.getActivityDetailTime(time));//时间:
 	}
 	/**获取来源*/
 	public String getArticleFrom(String type)
